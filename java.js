@@ -5,12 +5,13 @@ const newGridButton = document.createElement("button");
 newGridButton.textContent = "Make New Grid";
 container.appendChild(newGridButton);
 
-newGridButton.addEventListener("click", () => alert("new Grid called"));
+newGridButton.addEventListener("click", newGrid);
 
-const grid = document.createElement("div");
-grid.classList.add("grid")
 
 function generateGrid(number) {
+
+    const grid = document.createElement("div");
+    grid.classList.add("grid")
 
     for (let col = 0; col < number; col++) {
 
@@ -35,5 +36,23 @@ function generateGrid(number) {
 
 generateGrid(16);
 
+function newGrid() {
 
+    let size = prompt("Enter Grid Dimension (Upper Limit of 100)", "");
+
+    size = Number(size);
+    if (size > 100) size = prompt("Enter Grid Dimension (Upper Limit of 100)", "");
+
+    removeGrid();
+    console.log("grid removed");
+    generateGrid(size);
+    console.log("grid added");
+
+}
+
+function removeGrid() {
+    const grid = document.querySelector(".grid");
+
+    container.removeChild(grid);
+}
 
