@@ -1,12 +1,4 @@
-//Create a webpage with a 16x16 grid of square divs
 const container = document.querySelector(".container");
-
-const newGridButton = document.createElement("button");
-newGridButton.textContent = "Make New Grid";
-container.appendChild(newGridButton);
-
-newGridButton.addEventListener("click", newGrid);
-
 
 function generateGrid(number) {
 
@@ -21,20 +13,50 @@ function generateGrid(number) {
         for (let i = 0; i < number; i++) {
             let squareDiv = document.createElement("div");
             squareDiv.classList.add("square");
-            console.log("sqaure added");
-            squareDiv.addEventListener("mouseenter", (e) => e.target.style.backgroundColor = "black");
+            squareDiv.addEventListener("mouseenter", (e) => {
+                colorIn(e.target);
+            });
             colDiv.appendChild(squareDiv);
         }
-        //container.appendChild(colDiv);
         grid.appendChild(colDiv);
 
     }
-
-    container.appendChild(grid);
-
+    container.insertBefore(grid, container.children[0]);
 }
 
-generateGrid(16);
+function colorIn(square) {
+
+    if (mode === "shade") {
+        if (square.style.backgroundColor == "") {
+            square.style.backgroundColor = "black";
+            square.style.opacity = "0.1";
+        }
+        else {
+            square.style.backgroundColor = "black";
+            let increasedOpacity = Number(square.style.opacity) + 0.1;
+            square.style.opacity = `${increasedOpacity}`;
+        };
+
+    }
+
+    else {
+        if (square.style.backgroundColor == "" || square.style.backgroundColor == "black") {
+            if (square.style.backgroundColor == "") {
+                square.style.opacity = "0.1"
+            }
+            else {
+                let increasedOpacity = Number(square.style.opacity) + 0.1;
+            };
+
+            let randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+            square.style.backgroundColor = randomColor;
+        }
+        else {
+            let increasedOpacity = Number(square.style.opacity) + 0.1;
+            square.style.opacity = `${increasedOpacity}`;
+        };
+    }
+}
 
 function newGrid() {
 
@@ -56,3 +78,54 @@ function removeGrid() {
     container.removeChild(grid);
 }
 
+function clearGrid() {
+    const squares = document.querySelectorAll(".square");
+    squares.forEach(square => {
+        square.style.backgroundColor = "";
+    });
+}
+
+//default grid size
+generateGrid(16);
+
+//default is shading mode
+let mode = "shade";
+
+
+
+const buttonDiv = document.createElement("div")
+
+const newGridButton = document.createElement("button");
+newGridButton.textContent = "Make New Grid";
+
+buttonDiv.appendChild(newGridButton);
+newGridButton.addEventListener("click", newGrid);
+
+const colorModeButton = document.createElement("button");
+colorModeButton.textContent = "Coloring";
+
+buttonDiv.appendChild(colorModeButton);
+
+const shadeModeButton = document.createElement("button");
+shadeModeButton.textContent = "Shading";
+shadeModeButton.classList.add("on");
+buttonDiv.appendChild(shadeModeButton);
+
+shadeModeButton.addEventListener("click", (e) => {
+    mode = "shade";
+    e.target.classList.add("on");
+    colorModeButton.classList.remove("on");
+})
+
+colorModeButton.addEventListener("click", (e) => {
+    mode = "color";
+    e.target.classList.add("on");
+    shadeModeButton.classList.remove("on");
+})
+buttonDiv.style.display = "flex";
+container.appendChild(buttonDiv);
+
+const clearButton = document.createElement("button");
+clearButton.textContent = "Clear Grid";
+clearButton.addEventListener("click", clearGrid);
+buttonDiv.appendChild(clearButton);

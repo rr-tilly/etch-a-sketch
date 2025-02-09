@@ -3,10 +3,10 @@ body {
   width: 100vw; /* Adjust width */
   height: 100vh; /* Full height but within the viewport */
   text-align: center;
+  background-color: #efe6ff;
 }
 
 .square {
-  border: 1px solid rgb(108, 107, 107);
   height: 100%;
   padding-left: 100%;
 }
@@ -23,7 +23,11 @@ body {
   width: 90vh;
   flex-direction: row;
   justify-content: center;
+  border-radius: 8px;
+  border: 5px solid #ad9bc9;
   margin-left: 10px;
+  border-radius: 5px;
+  background-color: white;
 }
 
 .container {
@@ -35,7 +39,34 @@ body {
 }
 
 button {
-  width: 200px;
-  padding: 10px;
-  margin-bottom: 10px;
+  background-color: #5d389d;
+  font-weight: 600;
+  padding: 10px 20px;
+  margin: 10px 10px;
+  border-radius: 100px;
+  border: none;
+  color: #efe6ff;
+
+  font-family: "Sour Gummy", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  box-shadow: 0 7px #9186a3;
+}
+
+button:hover {
+  background-color: #554474;
+}
+
+button:active {
+  background-color: #554474;
+  box-shadow: 0 4px #27242b;
+  transform: translateY(4px);
+}
+
+.on {
+  background-color: #554474;
+  box-shadow: 0 4px #27242b;
+  transform: translateY(4px);
 }
